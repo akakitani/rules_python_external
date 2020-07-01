@@ -36,10 +36,10 @@ def _pip_repository_impl(rctx):
 
     result = rctx.execute(
         args,
-        environment = {
+        environment = dict(rctx.attr.wheel_env,
             # Manually construct the PYTHONPATH since we cannot use the toolchain here
-            "PYTHONPATH": pypath,
-        },
+            PYTHONPATH = pypath,
+        ),
         timeout = rctx.attr.timeout,
     )
     if result.return_code:
